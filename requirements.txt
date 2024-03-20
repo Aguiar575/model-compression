@@ -1,0 +1,15 @@
+transformers[tf,torch,sentencepiece,vision,optuna,sklearn,onnxruntime]==4.16.2
+datasets[audio]==1.16.1
+matplotlib
+ipywidgets
+umap-learn==0.5.1
+bertviz==1.2.0
+seqeval==1.2.2
+nltk==3.6.6
+sacrebleu==1.5.1
+rouge-score==0.0.4
+py7zr # Needed for samsum dataset
+nlpaug==1.1.7
+scikit-multilearn==0.2.0
+psutil
+accelerate==0.5.1
