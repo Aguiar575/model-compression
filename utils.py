@@ -10,7 +10,11 @@ import torch
 import transformers
 from IPython.display import set_matplotlib_formats
 
+# TODO: Consider adding SageMaker StudioLab
+is_colab = "google.colab" in sys.modules
+is_kaggle = "kaggle_secrets" in sys.modules
 is_gpu_available = torch.cuda.is_available()
+
 
 def install_mpl_fonts():
     font_dir = ["./orm_fonts/"]
@@ -33,17 +37,19 @@ def setup_chapter():
     # Check if we have a GPU
     if not is_gpu_available:
         print("No GPU was detected! This notebook can be *very* slow without a GPU 🐢")
-        print("Go to Settings > Accelerator and select GPU.")
+        if is_colab:
+            print("Go to Runtime > Change runtime type and select a GPU hardware accelerator.")
+        if is_kaggle:
+            print("Go to Settings > Accelerator and select GPU.")
+    # Give visibility on versions of the core libraries
     display_library_version(transformers)
     display_library_version(datasets)
-    
     # Disable all info / warning messages
     transformers.logging.set_verbosity_error()
     datasets.logging.set_verbosity_error()
-    
+    # Logging is only available for the chapters that don't depend on Haystack
     if huggingface_hub.__version__ == "0.0.19":
         huggingface_hub.logging.set_verbosity_error()
-        
     # Use O'Reilly style for plots
     set_plot_style()
 
